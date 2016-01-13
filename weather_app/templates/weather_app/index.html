@@ -1,0 +1,33 @@
+<html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'weather_app/weather.css' %}" />
+</head>
+<body>
+<h2> Welcome {{ user.username }}! <a id='logout_button' href='/logout/'>Logout<a></h2>
+<form action="{% url 'new_location' %}" method="post">
+    {% csrf_token %}
+    <label for="new_loc">Enter a new zipcode here: </label>
+    <input id="loc" type="text" name="zip" >   
+    <input type="submit" id="submit" name="submit" value="zip" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+<h3> Current Conditions </h3>
+{% if location_list %}
+    <ul>
+    {% for location in location_list %}
+        <li class='locations'>
+            <b>{{ location.location }}</b> ({{ location.zip }}) 
+            <br>
+            <b>Temp:</b> {{ location.temp_string }}
+            <br>
+            <b>Humidity:</b> {{ location.humidity }}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No locations set.</p>
+{% endif %}
+</body>
+</html>
+

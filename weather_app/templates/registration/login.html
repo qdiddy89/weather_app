@@ -1,0 +1,19 @@
+<html>
+<body>
+    <div id='login_box'>
+        {%if form.errors %}
+            <p> Invalid username/password combination, please try again </p>
+        {% endif %}
+
+        <h1>Weather App</h1>
+        <h3>Please login below</h3>
+        <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+            {{form.username.label_tag}}{{form.username}}
+            {{form.password.label_tag}}{{form.password}}
+            <input type="submit" id="submit" name="submit" value="login" />
+            <input type="hidden" name="next" value="{{ next }}" />        
+        </form>
+    </div>
+</body>
+</html>
